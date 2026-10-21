@@ -1,0 +1,15 @@
+# Mẫu cấu hình dữ liệu YOLOv8-seg. Script s02_split_dataset.py sẽ SINH LẠI file dataset.yaml
+# với đường dẫn TUYỆT ĐỐI trong thư mục dữ liệu đầu ra – nên dùng file được sinh ra khi huấn luyện.
+path: /content/datasets/agrismart
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: leaf
+  1: tomato__early_blight
+  2: tomato__late_blight
+  3: tomato__septoria_leaf_spot
+  4: cucumber__downy_mildew
+  5: cucumber__anthracnose
+  6: citrus__anthracnose

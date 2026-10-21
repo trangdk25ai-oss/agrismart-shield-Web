@@ -1,0 +1,288 @@
+{
+  "schema_version": "1.0.0",
+  "kb_version": "2026.10-draft.1",
+  "updated_at": "2026-10-13",
+  "review_status": "DRAFT",
+  "disclaimer": "Dữ liệu MẪU phục vụ phát triển và trình diễn. Tên hoạt chất, liều lượng, thời gian cách ly phải được cán bộ chuyên môn bảo vệ thực vật thẩm định, đối chiếu Danh mục thuốc bảo vệ thực vật được phép sử dụng tại Việt Nam hiện hành và nhãn sản phẩm trước khi phát hành cho nông dân.",
+  "references": [
+    {
+      "id": "TT75_2025",
+      "title": "Thông tư số 75/2025/TT-BNNMT ngày 26/12/2025 của Bộ trưởng Bộ Nông nghiệp và Môi trường ban hành Danh mục thuốc bảo vệ thực vật được phép sử dụng tại Việt Nam và Danh mục thuốc bảo vệ thực vật cấm sử dụng tại Việt Nam",
+      "note": "Được sửa đổi, bổ sung bởi Thông tư số 28/2026/TT-BNNMT ngày 30/6/2026 (hiệu lực từ 15/8/2026). Mọi sản phẩm gắn với hoạt chất trong file này phải có tên trong Danh mục được phép sử dụng."
+    },
+    {
+      "id": "QCVN_01_38_2010",
+      "title": "QCVN 01-38:2010/BNNPTNT – Quy chuẩn kỹ thuật quốc gia về phương pháp điều tra phát hiện dịch hại cây trồng (ban hành kèm Thông tư số 71/2010/TT-BNNPTNT)",
+      "note": "Căn cứ phương pháp tính tỷ lệ bệnh, chỉ số bệnh ở cấp đồng ruộng; cần kiểm tra tình trạng hiệu lực trước khi viện dẫn chính thức."
+    }
+  ],
+  "default_severity_thresholds": {
+    "onset_upper_exclusive": 5.0,
+    "light_upper_inclusive": 15.0
+  },
+  "severity_levels": {
+    "HEALTHY": { "label": "Không phát hiện vết bệnh", "range_text": "0%", "color": "#2E7D32" },
+    "ONSET": { "label": "Khởi phát", "range_text": "< 5%", "color": "#F9A825" },
+    "LIGHT": { "label": "Nhiễm nhẹ", "range_text": "5% – 15%", "color": "#EF6C00" },
+    "HEAVY": { "label": "Nhiễm nặng", "range_text": "> 15%", "color": "#C62828" }
+  },
+  "tank_presets": [
+    { "code": "TANK_16L", "label": "Bình đeo vai 16 lít", "volume_l": 16 },
+    { "code": "TANK_2L", "label": "Bình xịt cầm tay 2 lít", "volume_l": 2 }
+  ],
+  "products": [
+    {
+      "code": "BIO_BACILLUS_SUBTILIS",
+      "active_ingredient": "Bacillus subtilis",
+      "group": "Chế phẩm sinh học – vi khuẩn đối kháng",
+      "formulation": "WP (bột thấm nước)",
+      "target": "Nấm, vi khuẩn gây bệnh trên lá",
+      "label_rate_per_liter": { "amount": 1.25, "unit": "g" },
+      "rate_verified": false,
+      "phi_days": null,
+      "notes": "Liều MẪU để chạy thử hệ thống. Thay bằng liều ghi trên nhãn của sản phẩm thương mại cụ thể có tên trong Danh mục hiện hành."
+    },
+    {
+      "code": "BIO_TRICHODERMA",
+      "active_ingredient": "Trichoderma spp.",
+      "group": "Chế phẩm sinh học – nấm đối kháng",
+      "formulation": "WP (bột thấm nước)",
+      "target": "Nấm gây bệnh; hiệu quả cao khi phòng sớm, xử lý đất và tàn dư",
+      "label_rate_per_liter": { "amount": 3.0, "unit": "g" },
+      "rate_verified": false,
+      "phi_days": null,
+      "notes": "Liều MẪU để chạy thử hệ thống. Thay bằng liều ghi trên nhãn sản phẩm."
+    },
+    {
+      "code": "BIO_BT",
+      "active_ingredient": "Bacillus thuringiensis",
+      "group": "Chế phẩm sinh học – trừ sâu",
+      "formulation": "WP (bột thấm nước)",
+      "target": "Sâu non bộ cánh vảy (sâu ăn lá). KHÔNG có tác dụng với bệnh do nấm, vi khuẩn – không gắn vào các quy tắc bệnh lá.",
+      "label_rate_per_liter": { "amount": 1.0, "unit": "g" },
+      "rate_verified": false,
+      "phi_days": null,
+      "notes": "Giữ trong danh mục để mở rộng khi mô hình có lớp 'sâu hại'."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "TOMATO_EARLY_BLIGHT",
+      "model_class": "tomato__early_blight",
+      "crop_code": "tomato",
+      "crop_name": "Cà chua",
+      "disease_name": "Bệnh đốm vòng",
+      "pathogen": "Nấm Alternaria solani",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis", "Trichoderma spp."],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] },
+        { "product_code": "BIO_TRICHODERMA", "apply_at": ["LIGHT", "HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Duy trì thăm đồng định kỳ 5–7 ngày/lần."],
+        "ONSET": [
+          "Ngắt bỏ lá có vết bệnh ở tầng dưới, cho vào túi kín và tiêu hủy xa ruộng.",
+          "Tưới vào gốc, hạn chế làm ướt lá; tỉa lá già, cành tăm để ruộng thông thoáng.",
+          "Phun phòng chế phẩm sinh học theo liều trên nhãn; kiểm tra lại sau 3–5 ngày."
+        ],
+        "LIGHT": [
+          "Ngắt bỏ toàn bộ lá bệnh, vệ sinh tàn dư quanh gốc.",
+          "Phun chế phẩm sinh học theo lịch bên dưới, phun ướt đều cả hai mặt lá.",
+          "Không bón thừa đạm; bổ sung kali để tăng sức chống chịu."
+        ],
+        "HEAVY": [
+          "Tiêu hủy lá, cành bị bệnh nặng; không để tàn dư trên ruộng.",
+          "Phun chế phẩm sinh học theo lịch; chế phẩm sinh học có thể không đủ hiệu lực ở mức nhiễm nặng.",
+          "Báo ngay cán bộ BVTV/khuyến nông để được hướng dẫn sử dụng thuốc theo nguyên tắc 4 đúng."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 7 },
+        "LIGHT": { "applications": 2, "interval_days": 7 },
+        "HEAVY": { "applications": 3, "interval_days": 5 }
+      },
+      "escalation": { "HEAVY": "Nhiễm nặng: đề nghị liên hệ cán bộ bảo vệ thực vật cấp xã để kiểm tra đồng ruộng." }
+    },
+    {
+      "rule_id": "TOMATO_LATE_BLIGHT",
+      "model_class": "tomato__late_blight",
+      "crop_code": "tomato",
+      "crop_name": "Cà chua",
+      "disease_name": "Bệnh sương mai (mốc sương)",
+      "pathogen": "Phytophthora infestans",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis"],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Tăng tần suất thăm đồng khi trời âm u, mưa phùn, ẩm độ cao."],
+        "ONSET": [
+          "Bệnh lây lan rất nhanh khi trời lạnh ẩm: ngắt bỏ ngay lá bệnh và tiêu hủy.",
+          "Thoát nước tốt, không tưới phun mưa chiều tối.",
+          "Phun phòng chế phẩm sinh học; kiểm tra lại sau 2–3 ngày."
+        ],
+        "LIGHT": [
+          "Ngắt bỏ lá, chùm quả bị bệnh; tiêu hủy xa ruộng.",
+          "Phun chế phẩm sinh học theo lịch bên dưới.",
+          "Thông báo cán bộ BVTV để theo dõi diễn biến trên diện rộng."
+        ],
+        "HEAVY": [
+          "Nhổ bỏ, tiêu hủy cây bị bệnh nặng để cắt nguồn lây.",
+          "Chế phẩm sinh học không đủ để dập dịch ở mức này.",
+          "Liên hệ ngay cán bộ BVTV để được hướng dẫn biện pháp xử lý theo quy định."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 5 },
+        "LIGHT": { "applications": 2, "interval_days": 5 },
+        "HEAVY": { "applications": 2, "interval_days": 5 }
+      },
+      "escalation": {
+        "LIGHT": "Bệnh có khả năng bùng phát: nên báo cán bộ BVTV.",
+        "HEAVY": "Nhiễm nặng: liên hệ ngay cán bộ bảo vệ thực vật."
+      }
+    },
+    {
+      "rule_id": "TOMATO_SEPTORIA",
+      "model_class": "tomato__septoria_leaf_spot",
+      "crop_code": "tomato",
+      "crop_name": "Cà chua",
+      "disease_name": "Bệnh đốm lá Septoria",
+      "pathogen": "Nấm Septoria lycopersici",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis", "Trichoderma spp."],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] },
+        { "product_code": "BIO_TRICHODERMA", "apply_at": ["HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Duy trì thăm đồng định kỳ."],
+        "ONSET": [
+          "Ngắt bỏ lá gốc có đốm bệnh; phủ gốc để hạn chế nước bắn từ đất lên lá.",
+          "Phun phòng chế phẩm sinh học theo liều trên nhãn."
+        ],
+        "LIGHT": [
+          "Ngắt bỏ lá bệnh, vệ sinh đồng ruộng.",
+          "Phun chế phẩm sinh học theo lịch bên dưới."
+        ],
+        "HEAVY": [
+          "Tiêu hủy lá bệnh, luân canh với cây khác họ ở vụ sau.",
+          "Liên hệ cán bộ BVTV để được hướng dẫn thêm."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 7 },
+        "LIGHT": { "applications": 2, "interval_days": 7 },
+        "HEAVY": { "applications": 3, "interval_days": 7 }
+      },
+      "escalation": { "HEAVY": "Nhiễm nặng: đề nghị liên hệ cán bộ bảo vệ thực vật." }
+    },
+    {
+      "rule_id": "CUCUMBER_DOWNY_MILDEW",
+      "model_class": "cucumber__downy_mildew",
+      "crop_code": "cucumber",
+      "crop_name": "Dưa chuột",
+      "disease_name": "Bệnh sương mai",
+      "pathogen": "Pseudoperonospora cubensis",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis"],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Theo dõi chặt khi có sương nhiều, ẩm độ cao."],
+        "ONSET": [
+          "Ngắt bỏ lá có vết bệnh; làm giàn thông thoáng, tỉa bớt lá già.",
+          "Không tưới lên lá vào chiều tối.",
+          "Phun phòng chế phẩm sinh học; kiểm tra lại sau 3 ngày."
+        ],
+        "LIGHT": [
+          "Ngắt bỏ lá bệnh, tiêu hủy xa ruộng.",
+          "Phun chế phẩm sinh học theo lịch, phun kỹ mặt dưới lá."
+        ],
+        "HEAVY": [
+          "Tiêu hủy dây lá bệnh nặng.",
+          "Liên hệ cán bộ BVTV để được hướng dẫn biện pháp xử lý theo quy định."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 5 },
+        "LIGHT": { "applications": 2, "interval_days": 5 },
+        "HEAVY": { "applications": 3, "interval_days": 5 }
+      },
+      "escalation": { "HEAVY": "Nhiễm nặng: đề nghị liên hệ cán bộ bảo vệ thực vật." }
+    },
+    {
+      "rule_id": "CUCUMBER_ANTHRACNOSE",
+      "model_class": "cucumber__anthracnose",
+      "crop_code": "cucumber",
+      "crop_name": "Dưa chuột",
+      "disease_name": "Bệnh thán thư",
+      "pathogen": "Nấm Colletotrichum spp.",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis", "Trichoderma spp."],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] },
+        { "product_code": "BIO_TRICHODERMA", "apply_at": ["LIGHT", "HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Duy trì thăm đồng định kỳ."],
+        "ONSET": [
+          "Ngắt bỏ lá có vết bệnh, tránh làm ướt lá khi tưới.",
+          "Phun phòng chế phẩm sinh học theo liều trên nhãn."
+        ],
+        "LIGHT": [
+          "Ngắt bỏ lá, quả bị bệnh; vệ sinh giàn.",
+          "Phun chế phẩm sinh học theo lịch bên dưới."
+        ],
+        "HEAVY": [
+          "Tiêu hủy bộ phận bị bệnh nặng; không dùng hạt giống từ ruộng nhiễm bệnh.",
+          "Liên hệ cán bộ BVTV để được hướng dẫn thêm."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 7 },
+        "LIGHT": { "applications": 2, "interval_days": 7 },
+        "HEAVY": { "applications": 3, "interval_days": 7 }
+      },
+      "escalation": { "HEAVY": "Nhiễm nặng: đề nghị liên hệ cán bộ bảo vệ thực vật." }
+    },
+    {
+      "rule_id": "CITRUS_ANTHRACNOSE",
+      "model_class": "citrus__anthracnose",
+      "crop_code": "citrus",
+      "crop_name": "Cây có múi",
+      "disease_name": "Bệnh thán thư",
+      "pathogen": "Nấm Colletotrichum gloeosporioides",
+      "severity_thresholds": null,
+      "active_ingredient": ["Bacillus subtilis", "Trichoderma spp."],
+      "dosage_guide": [
+        { "product_code": "BIO_BACILLUS_SUBTILIS", "apply_at": ["ONSET", "LIGHT", "HEAVY"] },
+        { "product_code": "BIO_TRICHODERMA", "apply_at": ["LIGHT", "HEAVY"] }
+      ],
+      "actions": {
+        "HEALTHY": ["Lá chưa có vết bệnh. Theo dõi kỹ vào các đợt lộc non."],
+        "ONSET": [
+          "Cắt tỉa cành, lá bị bệnh; thu gom lá rụng tiêu hủy.",
+          "Phun phòng chế phẩm sinh học khi cây ra lộc."
+        ],
+        "LIGHT": [
+          "Cắt tỉa cành bệnh, tạo tán thông thoáng.",
+          "Phun chế phẩm sinh học theo lịch bên dưới."
+        ],
+        "HEAVY": [
+          "Cắt bỏ cành khô, cành bệnh nặng; vệ sinh vườn.",
+          "Liên hệ cán bộ BVTV để được hướng dẫn biện pháp xử lý theo quy định."
+        ]
+      },
+      "spray_plan": {
+        "ONSET": { "applications": 1, "interval_days": 10 },
+        "LIGHT": { "applications": 2, "interval_days": 7 },
+        "HEAVY": { "applications": 3, "interval_days": 7 }
+      },
+      "escalation": { "HEAVY": "Nhiễm nặng: đề nghị liên hệ cán bộ bảo vệ thực vật." }
+    }
+  ]
+}

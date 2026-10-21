@@ -1,0 +1,44 @@
+[
+  {
+    "name": "leaf",
+    "color": "#43a047",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "tomato__early_blight",
+    "color": "#e53935",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "tomato__late_blight",
+    "color": "#fb8c00",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "tomato__septoria_leaf_spot",
+    "color": "#8e24aa",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "cucumber__downy_mildew",
+    "color": "#1e88e5",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "cucumber__anthracnose",
+    "color": "#00897b",
+    "type": "any",
+    "attributes": []
+  },
+  {
+    "name": "citrus__anthracnose",
+    "color": "#6d4c41",
+    "type": "any",
+    "attributes": []
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "AgriSmart: 1. Cài môi trường + chạy thử Phần 1",
+      "type": "shell",
+      "command": "bash scripts/setup_ubuntu.sh",
+      "windows": {
+        "command": "powershell -ExecutionPolicy Bypass -File scripts\\phan1_windows.ps1"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Kiểm thử Python (pytest)",
+      "type": "shell",
+      "command": ".venv/bin/python -m pytest -q",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python -m pytest -q"
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Kiểm tra tri thức IPM",
+      "type": "shell",
+      "command": ".venv/bin/python knowledge_base/validate_kb.py",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python knowledge_base/validate_kb.py"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Chạy thử dữ liệu tổng hợp (s01 → s04)",
+      "type": "shell",
+      "command": "make smoke",
+      "windows": {
+        "command": "powershell -ExecutionPolicy Bypass -File scripts\\phan1_windows.ps1"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Danh mục nguồn dữ liệu",
+      "type": "shell",
+      "command": ".venv/bin/python ai/scripts/datasets_catalog.py list",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python ai/scripts/datasets_catalog.py list"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Mở Labelme (gán nhãn)",
+      "type": "shell",
+      "command": "make labelme",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python -m pip install labelme; New-Item -ItemType Directory -Force data_raw\\can_gan_nhan | Out-Null; .\\.venv\\Scripts\\labelme data_raw\\can_gan_nhan --labels ai\\configs\\labels\\labelme_labels.txt"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Chạy trang web (Phần 3)",
+      "type": "shell",
+      "command": ".venv/bin/python web/run.py",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python web\\run.py"
+      },
+      "problemMatcher": [],
+      "isBackground": true
+    },
+    {
+      "label": "AgriSmart: Tạo bộ ảnh mẫu Demo (s10)",
+      "type": "shell",
+      "command": ".venv/bin/python ai/scripts/s10_demo_pack.py --data datasets/agrismart/dataset.yaml --split test --n 24 --source-map plantseg_=plantseg",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python ai\\scripts\\s10_demo_pack.py --data datasets\\agrismart\\dataset.yaml --split test --n 24 --source-map plantseg_=plantseg"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Kiểm thử độ bền (s09)",
+      "type": "shell",
+      "command": ".venv/bin/python ai/scripts/s09_robustness.py --model web/models/model_int8.onnx --data datasets/agrismart/dataset.yaml --split test --out reports/robustness",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python ai\\scripts\\s09_robustness.py --model web\\models\\model_int8.onnx --data datasets\\agrismart\\dataset.yaml --split test --out reports\\robustness"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "AgriSmart: Báo cáo kiểm thử (s11)",
+      "type": "shell",
+      "command": ".venv/bin/python ai/scripts/s11_test_report.py --reports reports --out reports/bao_cao_kiem_thu.md",
+      "windows": {
+        "command": ".\\.venv\\Scripts\\python ai\\scripts\\s11_test_report.py --reports reports --out reports\\bao_cao_kiem_thu.md"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

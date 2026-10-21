@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agrismart.local/schemas/ipm_rules.schema.json",
+  "title": "AgriSmart Shield – Cơ sở tri thức IPM",
+  "type": "object",
+  "required": [
+    "schema_version", "kb_version", "review_status", "disclaimer",
+    "default_severity_thresholds", "severity_levels", "tank_presets", "products", "rules"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "kb_version": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "format": "date" },
+    "review_status": { "enum": ["DRAFT", "REVIEWED", "APPROVED"] },
+    "disclaimer": { "type": "string", "minLength": 10 },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": { "id": { "type": "string" }, "title": { "type": "string" }, "note": { "type": "string" } }
+      }
+    },
+    "default_severity_thresholds": { "$ref": "#/$defs/thresholds" },
+    "severity_levels": {
+      "type": "object",
+      "required": ["HEALTHY", "ONSET", "LIGHT", "HEAVY"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(HEALTHY|ONSET|LIGHT|HEAVY)$": {
+          "type": "object",
+          "required": ["label", "color"],
+          "properties": {
+            "label": { "type": "string" },
+            "range_text": { "type": "string" },
+            "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+          }
+        }
+      }
+    },
+    "tank_presets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["code", "label", "volume_l"],
+        "properties": {
+          "code": { "type": "string" },
+          "label": { "type": "string" },
+          "volume_l": { "type": "number", "exclusiveMinimum": 0, "maximum": 1000 }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "active_ingredient", "label_rate_per_liter", "rate_verified"],
+        "properties": {
+          "code": { "type": "string", "pattern": "^[A-Z0-9_]+$" },
+          "active_ingredient": { "type": "string" },
+          "group": { "type": "string" },
+          "formulation": { "type": "string" },
+          "target": { "type": "string" },
+          "label_rate_per_liter": {
+            "type": "object",
+            "required": ["amount", "unit"],
+            "properties": {
+              "amount": { "type": "number", "exclusiveMinimum": 0 },
+              "unit": { "enum": ["g", "ml"] }
+            }
+          },
+          "rate_verified": { "type": "boolean" },
+          "phi_days": { "type": ["integer", "null"], "minimum": 0 },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "rule_id", "model_class", "crop_code", "crop_name", "disease_name",
+          "severity_thresholds", "active_ingredient", "dosage_guide", "actions", "spray_plan"
+        ],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "model_class": { "type": "string", "pattern": "^[a-z0-9]+__[a-z0-9_]+$" },
+          "crop_code": { "type": "string" },
+          "crop_name": { "type": "string" },
+          "disease_name": { "type": "string" },
+          "pathogen": { "type": "string" },
+          "rule_status": { "enum": ["ACTIVE", "PENDING"] },
+          "severity_thresholds": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/thresholds" }] },
+          "active_ingredient": { "type": "array", "items": { "type": "string" } },
+          "dosage_guide": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["product_code", "apply_at"],
+              "properties": {
+                "product_code": { "type": "string" },
+                "apply_at": { "type": "array", "items": { "enum": ["ONSET", "LIGHT", "HEAVY"] }, "minItems": 1 }
+              }
+            }
+          },
+          "actions": {
+            "type": "object",
+            "required": ["HEALTHY", "ONSET", "LIGHT", "HEAVY"],
+            "additionalProperties": { "type": "array", "items": { "type": "string" } }
+          },
+          "spray_plan": {
+            "type": "object",
+            "required": ["ONSET", "LIGHT", "HEAVY"],
+            "additionalProperties": {
+              "type": "object",
+              "required": ["applications", "interval_days"],
+              "properties": {
+                "applications": { "type": "integer", "minimum": 0, "maximum": 10 },
+                "interval_days": { "type": "integer", "minimum": 1, "maximum": 60 }
+              }
+            }
+          },
+          "escalation": { "type": "object", "additionalProperties": { "type": "string" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "thresholds": {
+      "type": "object",
+      "required": ["onset_upper_exclusive", "light_upper_inclusive"],
+      "properties": {
+        "onset_upper_exclusive": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 },
+        "light_upper_inclusive": { "type": "number", "exclusiveMinimum": 0, "maximum": 100 }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+# Đầy đủ cho huấn luyện, đánh giá, xuất mô hình (Phần 2 – Google Colab GPU, hoặc máy có GPU NVIDIA).
+# Ghim phiên bản để kết quả huấn luyện/xuất mô hình tái lập được.
+# ultralytics 8.4.83+ đã đổi export format=tflite -> litert và int8=True -> quantize=8 (xem s07).
+-r requirements-core.txt
+ultralytics==8.4.176
+
+# Xuất LiteRT INT8 (ultralytics tự cài khi chạy s07; ghim ở đây nếu cần tái lập chính xác):
+# litert-torch>=0.9.0
+# ai-edge-litert>=2.1.4
+# ai-edge-quantizer>=0.6.0

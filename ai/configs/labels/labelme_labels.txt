@@ -1,0 +1,7 @@
+leaf
+tomato__early_blight
+tomato__late_blight
+tomato__septoria_leaf_spot
+cucumber__downy_mildew
+cucumber__anthracnose
+citrus__anthracnose

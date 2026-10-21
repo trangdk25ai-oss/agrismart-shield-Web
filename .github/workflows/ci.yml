@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Cài thư viện Phần 1 + máy chủ web (không cần torch)
+        run: pip install -r web/requirements.txt
+      - name: Kiểm thử (Severity, Knowledge Engine, giải mã mô hình, API web, kiểm thử thay thực địa)
+        run: pytest -q
+      - name: Danh mục nguồn dữ liệu hợp lệ
+        run: python ai/scripts/datasets_catalog.py list
+      - name: Kiểm tra cơ sở tri thức IPM
+        run: python knowledge_base/validate_kb.py
+      - name: Chạy thử pipeline dữ liệu trên dữ liệu tổng hợp
+        run: |
+          python ai/scripts/make_synthetic_dataset.py --out /tmp/raw --n 12
+          python ai/scripts/s01_convert_masks_to_yolo.py --images /tmp/raw/images --lesion-masks /tmp/raw/masks \
+            --mask-mode binary --class-map ai/configs/class_map.yaml --bootstrap-leaf --out /tmp/all
+          python ai/scripts/s02_split_dataset.py --src /tmp/all --out /tmp/ds --class-map ai/configs/class_map.yaml
+          python ai/scripts/s03_augment_train.py --data /tmp/ds --copies 1
+          python ai/scripts/s04_check_dataset.py --data-yaml /tmp/ds/dataset.yaml
+      - name: Máy chủ web khởi động và trả lời /api/health
+        run: |
+          python web/run.py --host 127.0.0.1 --port 8765 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8765/api/health && break; sleep 1; done
+          curl -sf http://127.0.0.1:8765/ | grep -q "AgriSmart Shield"

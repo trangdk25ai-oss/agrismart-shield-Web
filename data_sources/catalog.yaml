@@ -1,0 +1,309 @@
+# Danh mục nguồn dữ liệu cho AgriSmart Shield (đọc bằng ai/scripts/datasets_catalog.py).
+# Thông tin quy mô, lớp, loại nhãn được đọc từ trang gốc ngày 13/10/2026.
+# license_verified = false: CHƯA đọc được giấy phép trên trang gốc -> bắt buộc tự kiểm tra trước khi dùng.
+#
+# level:   A = có mask vết bệnh, huấn luyện phân đoạn được ngay
+#          B = có mask/polygon lá hoặc nhãn mức độ nghiêm trọng (bổ trợ lớp leaf, kiểm tra Severity)
+#          C = chỉ nhãn phân loại / hộp bao (nguồn ảnh để tự gán polygon, hoặc tập kiểm tra)
+#          D = mở rộng phạm vi (ví dụ sâu hại)
+#          Q = chưa đọc được trang chi tiết, cần kiểm tra
+# pipeline: cách nối vào bộ mã
+#          s01_value        mask theo mã lớp            -> s01 --mask-mode value
+#          s01_binary       mask nhị phân theo thư mục  -> s01 --mask-mode binary (mask JPG tự ngưỡng hóa)
+#          s01b_coco | s01b_labelme | s01b_via          -> s01b --format coco|labelme|via
+#          label_then_s01b  chọn ảnh bằng s00b, gán polygon trên Labelme, nhập bằng s01b
+#          eval_bbox        đánh giá theo hộp bao lá     -> s06b_eval_bbox.py
+#          reference        tham chiếu (thang mức độ, kiểm tra chéo), không đưa thẳng vào huấn luyện
+#          out_of_scope     ngoài phạm vi phân đoạn bệnh lá hiện tại
+schema_version: 1
+checked_on: "2026-10-13"
+sources:
+  - id: plantseg
+    name: "PlantSeg: A Large-Scale In-the-wild Dataset for Plant Disease Segmentation"
+    crops: [tomato, cucumber, citrus, rice, multi]
+    level: A
+    labels: "Mask PNG theo mã lớp bệnh (1–115), nền = 0; JSON LabelMe gốc; file meta CSV"
+    size: "11.400+ ảnh bệnh (bảng thống kê ghi 11.458), 115 bệnh trên 34 loại cây; ~480 ảnh cho 3 bệnh cà chua"
+    region: "Ảnh thu thập từ Internet (in-the-wild)"
+    license: "CC BY-NC-ND 4.0"
+    license_verified: true
+    doi: null
+    urls:
+      data: "https://zenodo.org/records/14935094"
+      code: "https://github.com/tqwei05/PlantSeg"
+      paper: "https://arxiv.org/abs/2409.04038"
+    pipeline: s01_value
+    notes: "Mã 98/99/102 = đốm vòng / sương mai / đốm lá Septoria cà chua. Không có mask phiến lá. Giấy phép không cho phân phối bản chỉnh sửa."
+
+  - id: plantdoc
+    name: "PlantDoc: A Dataset for Visual Plant Disease Detection (bản phát hiện đối tượng)"
+    crops: [tomato, multi]
+    level: C
+    labels: "Hộp bao quanh từng lá + tên bệnh của lá (train_labels.csv, test_labels.csv)"
+    size: "2.598 ảnh, 13 loài cây, 17 bệnh; 4 lớp cà chua cần dùng: train 377 ảnh / 1.183 hộp, test 38 ảnh / 84 hộp"
+    region: "Ảnh thu thập từ Internet"
+    license: "CC BY 4.0"
+    license_verified: true
+    doi: "10.1145/3371158.3371196"
+    urls:
+      data: "https://github.com/pratikkayal/PlantDoc-Object-Detection-Dataset"
+      paper: "https://arxiv.org/abs/1911.10317"
+    pipeline: eval_bbox
+    notes: "Không có mask vết bệnh. Dùng làm tập kiểm tra độc lập (s06b) hoặc gợi ý hộp cho SAM khi gán mask lá."
+
+  - id: cucumber_recognition
+    name: "Cucumber Disease Recognition Dataset"
+    crops: [cucumber]
+    level: C
+    labels: "Phân loại theo ảnh"
+    size: "1.280 ảnh gốc ngoài ruộng (+ 6.400 ảnh tăng cường – không dùng)"
+    classes: "Anthracnose, Bacterial Wilt, Belly Rot, Downy Mildew, Pythium Fruit Rot, Gummy Stem Blight, Fresh leaves, Fresh cucumber"
+    region: "Bangladesh (Jahangirnagar University)"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/y6d3z6f8z9.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/y6d3z6f8z9/1"
+    pipeline: label_then_s01b
+    fills_gap: [cucumber__downy_mildew, cucumber__anthracnose]
+
+  - id: cucumber_orchard
+    name: "An Annotated Image Dataset for Cucumber Leaf Disease Detection and Segmentation in Complex Orchard Environments"
+    crops: [cucumber]
+    level: Q
+    labels: "Theo tên gọi: nhãn phát hiện và phân đoạn – chưa xác nhận định dạng, danh sách bệnh, số ảnh"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: null
+    urls:
+      data: "https://data.mendeley.com/datasets/mb3vnhpk8z"
+    pipeline: s01b_coco
+    notes: "Trang chi tiết không đọc được khi tra cứu. Nếu là COCO/polygon thì nhập bằng s01b; nếu mask theo mã lớp thì s01 --mask-mode value."
+
+  - id: bdlemonleaf
+    name: "BDLemonLeaf: Image Dataset of Healthy and Disease Lemon (Citrus limon) Leaves"
+    crops: [citrus]
+    level: C
+    labels: "Phân loại theo ảnh"
+    size: "3.513 ảnh"
+    classes: "Healthy + 13 lớp, gồm Anthracnose, Citrus Canker, Black Spot, Greening, Melanose, Sooty Mould"
+    region: "Dhaka, Bangladesh"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/643f5bbc2t.5"
+    urls:
+      data: "https://data.mendeley.com/datasets/643f5bbc2t/5"
+    pipeline: label_then_s01b
+    fills_gap: [citrus__anthracnose]
+
+  - id: lemon_large_bd
+    name: "Large-Scale Lemon Leaf Disease and Pest Image Dataset from Bangladesh"
+    crops: [citrus]
+    level: C
+    labels: "Phân loại, chuyên gia gán thủ công"
+    size: "17.609 ảnh, 18 lớp"
+    classes: "Anthracnose, Citrus Canker, Citrus Scab, Greening, Melanose, Black Spot, Algal Leaf Spot, Sooty Mold, Healthy, sâu/nhện hại"
+    region: "4 vùng trồng chanh, Bangladesh"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/8d9fv6kpt3.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/8d9fv6kpt3/1"
+    pipeline: label_then_s01b
+    fills_gap: [citrus__anthracnose]
+
+  - id: citrus_pk
+    name: "A Citrus Fruits and Leaves Dataset for Detection and Classification of Citrus Diseases through Machine Learning"
+    crops: [citrus]
+    level: C
+    labels: "Phân loại, chuyên gia gán thủ công"
+    size: "759 ảnh (609 lá, 150 quả)"
+    classes: "Lá: Black Spot, Canker, Greening, Melanose, Healthy"
+    region: "Sargodha, Pakistan"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/3f83gxmv57.2"
+    urls:
+      data: "https://data.mendeley.com/datasets/3f83gxmv57/2"
+      paper: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6731382"
+    pipeline: label_then_s01b
+
+  - id: tomato_bd
+    name: "Tomato leaf dataset: A dataset for multiclass disease detection and classification"
+    crops: [tomato]
+    level: C
+    labels: "File TXT gán trên Roboflow (hộp bao hay polygon: chưa xác nhận)"
+    size: "731 ảnh (bảng thống kê ghi 1.621 nhãn)"
+    classes: "Early Blight, Late Blight, Leaf Mold, Bacterial Spot, Target Spot, Black Spot, Healthy"
+    region: "Dinajpur, Thakurgaon, Kushtia – Bangladesh (ảnh ruộng)"
+    license: "Bài báo CC BY; giấy phép dữ liệu chưa xác minh"
+    license_verified: false
+    doi: "10.17632/bpfd9cns5g.2"
+    urls:
+      data: "https://data.mendeley.com/datasets/bpfd9cns5g/2"
+      paper: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12008584"
+    pipeline: eval_bbox
+    notes: "Tập kiểm tra độc lập cho đốm vòng, sương mai cà chua."
+
+  - id: plantvillage
+    name: "PlantVillage Dataset"
+    crops: [tomato, multi]
+    level: B
+    labels: "Phân loại; bản 'segmented' đã tách lá khỏi nền bằng script tự động"
+    size: "54.306 ảnh, 38 lớp (14 loài cây, 26 bệnh)"
+    region: "Ảnh chụp điều kiện thí nghiệm, nền đồng nhất"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: null
+    urls:
+      code: "https://github.com/spMohanty/PlantVillage-Dataset"
+      data: "https://data.mendeley.com/datasets/tywbtsjrjv/1"
+      paper: "https://arxiv.org/abs/1604.03169"
+    pipeline: reference
+    notes: "Chỉ dùng tỷ lệ nhỏ để bổ trợ mask lá; không dùng làm tập kiểm tra chính (lệch miền, có nghiên cứu về thiên lệch – arXiv 2206.04374)."
+
+  - id: rocole
+    name: "RoCoLe: A robusta coffee leaf images dataset"
+    crops: [coffee]
+    level: B
+    labels: "Polygon từng lá + lớp: healthy, unhealthy, red_spider_mite, rust_level_1..4 (gỉ sắt 1–5%, 6–20%, 21–50%, >50% diện tích lá)"
+    size: "1.560 ảnh lá, 2.329 đối tượng"
+    region: "ESPAM (Ecuador), Universidad de Santiago de Chile"
+    license: "CC BY 4.0 (theo Dataset Ninja)"
+    license_verified: true
+    doi: "10.17632/c5yvn32dzg.2"
+    urls:
+      data: "https://data.mendeley.com/datasets/c5yvn32dzg/2"
+      paper: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6727496"
+      alt: "https://datasetninja.com/rocole"
+    pipeline: reference
+    notes: "Kiểm tra chéo thuật toán Severity (mức gỉ sắt theo % diện tích lá); polygon lá bổ trợ lớp leaf."
+
+  - id: bracol
+    name: "BRACOL - A Brazilian Arabica Coffee Leaf images dataset"
+    crops: [coffee]
+    level: B
+    labels: "Ảnh lá + ảnh triệu chứng; nhãn mức độ: healthy <0,1%, very low 0,1–5%, low 5–10%, high 10–15%, very high >15%"
+    size: "1.747 ảnh lá + 2.147 ảnh triệu chứng"
+    region: "Brazil (nền trắng)"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/yy2k5y8mxg.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/yy2k5y8mxg/1"
+      paper: "https://arxiv.org/abs/1907.11561"
+    pipeline: reference
+
+  - id: bracot
+    name: "BRACOT - A Brazilian Arabica Coffee Tree images dataset for instance segmentation of coffee leaves"
+    crops: [coffee]
+    level: B
+    labels: "Phân đoạn từng lá trên cây (VGG Image Annotator – VIA)"
+    size: "300 ảnh, 1.662 instance lá"
+    region: "Espírito Santo, Brazil (ảnh ngoài vườn)"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/pmkbyjpf6k.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/pmkbyjpf6k/1"
+    pipeline: s01b_via
+    notes: "Mask lá chụp thực địa, nhiều lá chồng nhau. Nhập bằng s01b --format via; tên thuộc tính nhãn cần xem trong file JSON."
+
+  - id: riceseg_5932
+    name: "RiceSeg-5932: Complete Pixel-Level Segmentation Masks for Rice Leaf Disease Images Samples"
+    crops: [rice]
+    level: A
+    labels: "Mask vùng bệnh JPG (vẽ tay, Label Studio); không có mask lá; KHÔNG kèm ảnh"
+    size: "5.932 mask; 4 bệnh: bạc lá vi khuẩn, đạo ôn, đốm nâu, tungro"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/92jc6w6mcy.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/92jc6w6mcy/1"
+    pipeline: s01_binary
+    pair_with: rice_sethy
+    notes: "Ghép với ảnh của Rice Leaf Disease Image Samples theo tên file. Mask JPG được s01 ngưỡng hóa ở 127."
+
+  - id: rice_sethy
+    name: "Rice Leaf Disease Image Samples"
+    crops: [rice]
+    level: C
+    labels: "Phân loại"
+    size: "5.932 ảnh; Bacterial blight, Blast, Brown Spot, Tungro"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/fwcj7stb8r.2"
+    urls:
+      data: "https://data.mendeley.com/datasets/fwcj7stb8r/2"
+    pipeline: s01_binary
+    notes: "Nguồn ảnh bắt buộc khi dùng RiceSeg-5932."
+
+  - id: durian_vn_binhphuoc_tiengiang
+    name: "A Durian Leaf Image Dataset of Common Diseases in Vietnam for Agricultural Diagnosis"
+    crops: [durian]
+    level: C
+    labels: "Phân loại, thư mục kiểu ImageNet"
+    size: "2.595 ảnh (484 khỏe, 2.111 bệnh)"
+    classes: "Healthy, Algal, Phomopsis, Colletotrichum, Rhizoctonia, Blight"
+    region: "Bù Đăng (Bình Phước), Cai Lậy (Tiền Giang) – Việt Nam"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/pxzvksbwnj"
+    urls:
+      data: "https://data.mendeley.com/datasets/pxzvksbwnj"
+      paper: "https://pmc.ncbi.nlm.nih.gov/articles/PMC12272783"
+    pipeline: label_then_s01b
+
+  - id: durian_vn_vinhlong
+    name: "Image Dataset of Ten Durian Diseases Captured in Real-Field Conditions from a Family Orchard in Vinh Long, Vietnam"
+    crops: [durian]
+    level: C
+    labels: "Phân loại theo thư mục; chuyên gia bệnh cây xác nhận triệu chứng"
+    size: "4.000 ảnh, ~400 ảnh/lớp, 10 lớp (gồm cả bệnh trên thân, trái)"
+    region: "Vĩnh Long – Việt Nam"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: "10.17632/mhjwyb5p48.1"
+    urls:
+      data: "https://data.mendeley.com/datasets/mhjwyb5p48"
+    pipeline: label_then_s01b
+
+  - id: ip102
+    name: "IP102: A Large-Scale Benchmark Dataset for Insect Pest Recognition"
+    crops: [multi]
+    level: D
+    labels: "Phân loại 102 loài sâu hại; 18.976 ảnh có hộp bao"
+    size: "75.222 ảnh"
+    license: "Chưa xác minh"
+    license_verified: false
+    doi: null
+    urls:
+      code: "https://github.com/xpwu95/IP102"
+      paper: "https://mmcheng.net/ip102/"
+    pipeline: out_of_scope
+
+  - id: roboflow_universe
+    name: "Roboflow Universe (kho dữ liệu cộng đồng)"
+    crops: [multi]
+    level: C
+    labels: "Khác nhau theo dự án; xuất COCO Segmentation"
+    license: "Khác nhau theo từng dự án"
+    license_verified: false
+    doi: null
+    urls:
+      data: "https://universe.roboflow.com/"
+    pipeline: s01b_coco
+    notes: "Chất lượng không đồng đều – rà lại polygon lá trước khi trộn vào tập huấn luyện."
+
+  - id: agml
+    name: "AgML – thư viện tổng hợp dữ liệu nông nghiệp"
+    crops: [multi]
+    level: C
+    labels: "Công cụ tra cứu, tải dữ liệu công khai"
+    license: "Mã thư viện Apache-2.0; mỗi bộ dữ liệu theo giấy phép riêng"
+    license_verified: true
+    doi: null
+    urls:
+      code: "https://github.com/Project-AgML/AgML"
+      data: "https://project-agml.github.io/datasets"
+    pipeline: reference

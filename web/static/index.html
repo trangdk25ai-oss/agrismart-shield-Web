@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2e7d32">
+<title>AgriSmart Shield</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%232e7d32' d='M16 2C8 8 5 15 6 22c4 5 13 6 20-1C28 13 23 6 16 2z'/%3E%3Cpath fill='%23fff' d='M15 28c0-9 2-15 6-20-3 6-4 12-4 20z'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>AgriSmart Shield</b><small>Chẩn đoán bệnh lá · Severity Index · IPM</small></div></div>
+  <span class="mode" id="mode-badge">Đang kết nối…</span>
+</header>
+
+<div class="banner warn" id="banner-mode" hidden></div>
+
+<nav class="tabs" role="tablist" aria-label="Chức năng">
+  <button role="tab" id="tab-diagnose" aria-controls="view-diagnose" aria-selected="true">Chẩn đoán</button>
+  <button role="tab" id="tab-samples" aria-controls="view-samples" aria-selected="false">Ảnh mẫu</button>
+  <button role="tab" id="tab-history" aria-controls="view-history" aria-selected="false">Lịch sử</button>
+</nav>
+
+<main>
+<section id="view-diagnose" role="tabpanel" aria-labelledby="tab-diagnose">
+  <!-- Màn hình 1: chụp / chọn ảnh -->
+  <article class="card" id="step-capture">
+    <h2><span class="num">1</span>Chụp ảnh lá</h2>
+    <div class="row2">
+      <label>Cây trồng<select id="crop"></select></label>
+      <label id="lesion-wrap" hidden>Bệnh giả định (chế độ thử)<select id="lesion"></select></label>
+    </div>
+    <div class="guide" aria-hidden="true"><div class="frame"><span class="leaf-ico"></span></div></div>
+    <ul class="tips">
+      <li>Đặt <b>một lá</b> vào giữa khung, lá chiếm khoảng 60–80% ảnh.</li>
+      <li>Đủ sáng, tránh ngược sáng và bóng đổ; giữ máy chắc tay.</li>
+      <li>Chụp mặt lá có vết bệnh rõ nhất.</li>
+    </ul>
+    <div class="actions">
+      <label class="btn primary" for="file-camera">Chụp ảnh</label>
+      <input id="file-camera" type="file" accept="image/*" capture="environment" hidden>
+      <label class="btn" for="file-pick">Chọn ảnh có sẵn</label>
+      <input id="file-pick" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+    </div>
+    <div class="preview" id="preview" hidden>
+      <img id="preview-img" alt="Ảnh đã chọn">
+      <div class="actions"><button class="btn primary" id="btn-analyze" type="button">Phân tích</button>
+      <button class="btn ghost" id="btn-clear" type="button">Chọn ảnh khác</button></div>
+    </div>
+  </article>
+
+  <!-- Màn hình 2: kết quả -->
+  <article class="card" id="step-result" hidden>
+    <h2><span class="num">2</span>Kết quả</h2>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+    <div class="blurbox" id="blurbox" hidden>
+      <p id="blur-text"></p>
+      <div class="actions"><label class="btn primary" for="file-camera">Chụp lại</label>
+      <button class="btn" id="btn-force" type="button">Vẫn phân tích</button></div>
+    </div>
+    <div id="result-body" hidden>
+      <figure class="stage" id="stage">
+        <img id="res-img" alt="Ảnh lá đã phân tích">
+        <img id="res-overlay" alt="" aria-hidden="true">
+        <div id="leaf-boxes"></div>
+      </figure>
+      <div class="ov-ctl">
+        <label class="switch"><input type="checkbox" id="ov-toggle" checked> Lớp phủ</label>
+        <span class="legend" id="legend"></span>
+      </div>
+      <p class="hint" id="leaf-hint" hidden>Ảnh có nhiều lá: chạm vào khung lá khác để xem tỷ lệ của lá đó.</p>
+      <div class="sev">
+        <div class="sev-pct" id="sev-pct">–</div>
+        <div><span class="pill" id="sev-level"></span><div class="sev-name" id="sev-name"></div><div class="muted" id="sev-sub"></div></div>
+      </div>
+      <div class="compare" id="compare" hidden></div>
+      <details class="more"><summary>Chi tiết kỹ thuật</summary>
+        <div id="tech"></div>
+      </details>
+    </div>
+  </article>
+
+  <!-- Màn hình 3: phác đồ -->
+  <article class="card" id="step-plan" hidden>
+    <h2><span class="num">3</span>Phác đồ xử lý (IPM)</h2>
+    <fieldset class="tanks"><legend>Loại bình phun</legend><div id="tanks"></div></fieldset>
+    <label class="date">Ngày phun đầu tiên <input type="date" id="start-date"></label>
+    <div id="plan"></div>
+  </article>
+</section>
+
+<section id="view-samples" role="tabpanel" aria-labelledby="tab-samples" hidden>
+  <article class="card">
+    <h2>Ảnh mẫu có đáp án</h2>
+    <p class="muted">Ảnh lấy từ tập kiểm tra (không dùng khi huấn luyện), kèm tỷ lệ tổn thương tính từ nhãn. Chọn một ảnh để so sánh kết quả của hệ thống với đáp án.</p>
+    <div class="sfilter" id="sfilter"></div>
+    <div class="grid" id="samples"></div>
+    <p class="empty" id="samples-empty" hidden>Chưa có bộ ảnh mẫu. Tạo bằng lệnh <code>python ai/scripts/s10_demo_pack.py</code> (xem docs/kich_ban_demo.md) rồi khởi động lại máy chủ.</p>
+  </article>
+</section>
+
+<section id="view-history" role="tabpanel" aria-labelledby="tab-history" hidden>
+  <article class="card">
+    <h2>Lịch sử trên máy này</h2>
+    <p class="muted">Chỉ lưu kết quả (không lưu ảnh) trong trình duyệt của thiết bị này.</p>
+    <ol class="history" id="history"></ol>
+    <p class="empty" id="history-empty">Chưa có kết quả nào.</p>
+    <button class="btn ghost" id="btn-history-clear" type="button">Xóa lịch sử</button>
+  </article>
+</section>
+</main>
+
+<footer class="foot" id="foot"></footer>
+<div class="busy" id="busy" hidden><div class="spinner" aria-hidden="true"></div><span>Đang phân tích…</span></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: tệp đang mở",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    },
+    {
+      "name": "Python: s04 kiểm tra dữ liệu chạy thử",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/ai/scripts/s04_check_dataset.py",
+      "args": [
+        "--data-yaml",
+        ".smoke/ds/dataset.yaml"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    },
+    {
+      "name": "Python: danh mục nguồn – bệnh còn thiếu",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/ai/scripts/datasets_catalog.py",
+      "args": [
+        "list",
+        "--gap",
+        "cucumber__downy_mildew"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    },
+    {
+      "name": "Python: máy chủ web (gỡ lỗi)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/web/run.py",
+      "args": [
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    },
+    {
+      "name": "Python: chẩn đoán 1 ảnh (agrismart.infer)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "agrismart.infer",
+      "args": [
+        "--model",
+        "web/models/model_int8.onnx",
+        "--image",
+        "${input:imagePath}",
+        "--crop",
+        "tomato",
+        "--out",
+        "reports/infer"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "env": {
+        "PYTHONUTF8": "1",
+        "PYTHONPATH": "${workspaceFolder}/ai"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "imagePath",
+      "type": "promptString",
+      "description": "Đường dẫn ảnh lá cần chẩn đoán",
+      "default": "demo/samples/s01.jpg"
+    }
+  ]
+}

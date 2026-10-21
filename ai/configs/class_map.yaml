@@ -1,0 +1,20 @@
+target_names:
+  0: leaf
+  1: tomato__early_blight
+  2: tomato__late_blight
+  3: tomato__septoria_leaf_spot
+  4: cucumber__downy_mildew
+  5: cucumber__anthracnose
+  6: citrus__anthracnose
+value_to_target:
+  98: tomato__early_blight
+  99: tomato__late_blight
+  102: tomato__septoria_leaf_spot
+folder_to_target:
+  Tomato early blight: tomato__early_blight
+  Tomato late blight: tomato__late_blight
+  Tomato septoria leaf spot: tomato__septoria_leaf_spot
+  Cucumber downy mildew: cucumber__downy_mildew
+  Cucumber anthracnose: cucumber__anthracnose
+  Citrus anthracnose: citrus__anthracnose
+label_aliases: {}

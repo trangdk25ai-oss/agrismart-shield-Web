@@ -1,0 +1,120 @@
+# Danh mục 115 lớp bệnh của PlantSeg (id = giá trị pixel trong mask; 0 là nền).
+# Nguồn: mmseg/datasets/plantseg115.py trong kho mã chính thức https://github.com/tqwei05/PlantSeg
+# crop: mã cây trồng (không dấu gạch dưới, dùng trong tên lớp <crop>__<disease>).
+# crop_vi / disease_vi: TÊN TẠM bằng tiếng Việt, CHƯA được chuyên gia BVTV rà soát; null = chưa có tên tạm.
+classes:
+  - {id: 1, name: "apple black rot", crop: apple, disease: "black rot", crop_vi: "Táo", disease_vi: "Thối đen"}
+  - {id: 2, name: "apple mosaic virus", crop: apple, disease: "mosaic virus", crop_vi: "Táo", disease_vi: "Khảm virus"}
+  - {id: 3, name: "apple rust", crop: apple, disease: "rust", crop_vi: "Táo", disease_vi: "Gỉ sắt"}
+  - {id: 4, name: "apple scab", crop: apple, disease: "scab", crop_vi: "Táo", disease_vi: "Ghẻ"}
+  - {id: 5, name: "banana anthracnose", crop: banana, disease: "anthracnose", crop_vi: "Chuối", disease_vi: "Thán thư"}
+  - {id: 6, name: "banana black leaf streak", crop: banana, disease: "black leaf streak", crop_vi: "Chuối", disease_vi: null}
+  - {id: 7, name: "banana bunchy top", crop: banana, disease: "bunchy top", crop_vi: "Chuối", disease_vi: "Chùn đọt"}
+  - {id: 8, name: "banana cigar end rot", crop: banana, disease: "cigar end rot", crop_vi: "Chuối", disease_vi: null}
+  - {id: 9, name: "banana cordana leaf spot", crop: banana, disease: "cordana leaf spot", crop_vi: "Chuối", disease_vi: null}
+  - {id: 10, name: "banana panama disease", crop: banana, disease: "panama disease", crop_vi: "Chuối", disease_vi: "Héo Panama"}
+  - {id: 11, name: "basil downy mildew", crop: basil, disease: "downy mildew", crop_vi: "Húng quế", disease_vi: "Sương mai"}
+  - {id: 12, name: "bean halo blight", crop: bean, disease: "halo blight", crop_vi: "Đậu", disease_vi: null}
+  - {id: 13, name: "bean mosaic virus", crop: bean, disease: "mosaic virus", crop_vi: "Đậu", disease_vi: "Khảm virus"}
+  - {id: 14, name: "bean rust", crop: bean, disease: "rust", crop_vi: "Đậu", disease_vi: "Gỉ sắt"}
+  - {id: 15, name: "bell pepper bacterial spot", crop: bellpepper, disease: "bacterial spot", crop_vi: "Ớt chuông", disease_vi: "Đốm vi khuẩn"}
+  - {id: 16, name: "bell pepper blossom end rot", crop: bellpepper, disease: "blossom end rot", crop_vi: "Ớt chuông", disease_vi: "Thối đít quả"}
+  - {id: 17, name: "bell pepper frogeye leaf spot", crop: bellpepper, disease: "frogeye leaf spot", crop_vi: "Ớt chuông", disease_vi: "Đốm mắt cua"}
+  - {id: 18, name: "bell pepper powdery mildew", crop: bellpepper, disease: "powdery mildew", crop_vi: "Ớt chuông", disease_vi: "Phấn trắng"}
+  - {id: 19, name: "blueberry anthracnose", crop: blueberry, disease: "anthracnose", crop_vi: "Việt quất", disease_vi: "Thán thư"}
+  - {id: 20, name: "blueberry botrytis blight", crop: blueberry, disease: "botrytis blight", crop_vi: "Việt quất", disease_vi: null}
+  - {id: 21, name: "blueberry mummy berry", crop: blueberry, disease: "mummy berry", crop_vi: "Việt quất", disease_vi: null}
+  - {id: 22, name: "blueberry rust", crop: blueberry, disease: "rust", crop_vi: "Việt quất", disease_vi: "Gỉ sắt"}
+  - {id: 23, name: "blueberry scorch", crop: blueberry, disease: "scorch", crop_vi: "Việt quất", disease_vi: null}
+  - {id: 24, name: "broccoli alternaria leaf spot", crop: broccoli, disease: "alternaria leaf spot", crop_vi: "Bông cải xanh", disease_vi: "Đốm lá Alternaria"}
+  - {id: 25, name: "broccoli downy mildew", crop: broccoli, disease: "downy mildew", crop_vi: "Bông cải xanh", disease_vi: "Sương mai"}
+  - {id: 26, name: "broccoli ring spot", crop: broccoli, disease: "ring spot", crop_vi: "Bông cải xanh", disease_vi: null}
+  - {id: 27, name: "cabbage alternaria leaf spot", crop: cabbage, disease: "alternaria leaf spot", crop_vi: "Bắp cải", disease_vi: "Đốm lá Alternaria"}
+  - {id: 28, name: "cabbage black rot", crop: cabbage, disease: "black rot", crop_vi: "Bắp cải", disease_vi: "Thối đen"}
+  - {id: 29, name: "cabbage downy mildew", crop: cabbage, disease: "downy mildew", crop_vi: "Bắp cải", disease_vi: "Sương mai"}
+  - {id: 30, name: "carrot alternaria leaf blight", crop: carrot, disease: "alternaria leaf blight", crop_vi: "Cà rốt", disease_vi: "Cháy lá Alternaria"}
+  - {id: 31, name: "carrot cavity spot", crop: carrot, disease: "cavity spot", crop_vi: "Cà rốt", disease_vi: null}
+  - {id: 32, name: "carrot cercospora leaf blight", crop: carrot, disease: "cercospora leaf blight", crop_vi: "Cà rốt", disease_vi: null}
+  - {id: 33, name: "cauliflower alternaria leaf spot", crop: cauliflower, disease: "alternaria leaf spot", crop_vi: "Súp lơ trắng", disease_vi: "Đốm lá Alternaria"}
+  - {id: 34, name: "cauliflower bacterial soft rot", crop: cauliflower, disease: "bacterial soft rot", crop_vi: "Súp lơ trắng", disease_vi: null}
+  - {id: 35, name: "celery anthracnose", crop: celery, disease: "anthracnose", crop_vi: "Cần tây", disease_vi: "Thán thư"}
+  - {id: 36, name: "celery early blight", crop: celery, disease: "early blight", crop_vi: "Cần tây", disease_vi: null}
+  - {id: 37, name: "cherry leaf spot", crop: cherry, disease: "leaf spot", crop_vi: "Anh đào", disease_vi: "Đốm lá"}
+  - {id: 38, name: "cherry powdery mildew", crop: cherry, disease: "powdery mildew", crop_vi: "Anh đào", disease_vi: "Phấn trắng"}
+  - {id: 39, name: "citrus canker", crop: citrus, disease: "canker", crop_vi: "Cây có múi", disease_vi: "Loét"}
+  - {id: 40, name: "citrus greening disease", crop: citrus, disease: "greening disease", crop_vi: "Cây có múi", disease_vi: "Vàng lá gân xanh"}
+  - {id: 41, name: "coffee berry blotch", crop: coffee, disease: "berry blotch", crop_vi: "Cà phê", disease_vi: null}
+  - {id: 42, name: "coffee black rot", crop: coffee, disease: "black rot", crop_vi: "Cà phê", disease_vi: "Thối đen"}
+  - {id: 43, name: "coffee brown eye spot", crop: coffee, disease: "brown eye spot", crop_vi: "Cà phê", disease_vi: null}
+  - {id: 44, name: "coffee leaf rust", crop: coffee, disease: "leaf rust", crop_vi: "Cà phê", disease_vi: "Gỉ sắt lá"}
+  - {id: 45, name: "corn gray leaf spot", crop: corn, disease: "gray leaf spot", crop_vi: "Ngô", disease_vi: "Đốm lá xám"}
+  - {id: 46, name: "corn northern leaf blight", crop: corn, disease: "northern leaf blight", crop_vi: "Ngô", disease_vi: "Đốm lá lớn"}
+  - {id: 47, name: "corn rust", crop: corn, disease: "rust", crop_vi: "Ngô", disease_vi: "Gỉ sắt"}
+  - {id: 48, name: "corn smut", crop: corn, disease: "smut", crop_vi: "Ngô", disease_vi: "Than đen"}
+  - {id: 49, name: "cucumber angular leaf spot", crop: cucumber, disease: "angular leaf spot", crop_vi: "Dưa chuột", disease_vi: "Đốm góc cạnh"}
+  - {id: 50, name: "cucumber bacterial wilt", crop: cucumber, disease: "bacterial wilt", crop_vi: "Dưa chuột", disease_vi: "Héo vi khuẩn"}
+  - {id: 51, name: "cucumber powdery mildew", crop: cucumber, disease: "powdery mildew", crop_vi: "Dưa chuột", disease_vi: "Phấn trắng"}
+  - {id: 52, name: "eggplant cercospora leaf spot", crop: eggplant, disease: "cercospora leaf spot", crop_vi: "Cà tím", disease_vi: "Đốm lá Cercospora"}
+  - {id: 53, name: "eggplant phomopsis fruit rot", crop: eggplant, disease: "phomopsis fruit rot", crop_vi: "Cà tím", disease_vi: null}
+  - {id: 54, name: "eggplant phytophthora blight", crop: eggplant, disease: "phytophthora blight", crop_vi: "Cà tím", disease_vi: null}
+  - {id: 55, name: "garlic leaf blight", crop: garlic, disease: "leaf blight", crop_vi: "Tỏi", disease_vi: "Cháy lá"}
+  - {id: 56, name: "garlic rust", crop: garlic, disease: "rust", crop_vi: "Tỏi", disease_vi: "Gỉ sắt"}
+  - {id: 57, name: "ginger leaf spot", crop: ginger, disease: "leaf spot", crop_vi: "Gừng", disease_vi: "Đốm lá"}
+  - {id: 58, name: "ginger sheath blight", crop: ginger, disease: "sheath blight", crop_vi: "Gừng", disease_vi: "Khô vằn"}
+  - {id: 59, name: "grape black rot", crop: grape, disease: "black rot", crop_vi: "Nho", disease_vi: "Thối đen"}
+  - {id: 60, name: "grape downy mildew", crop: grape, disease: "downy mildew", crop_vi: "Nho", disease_vi: "Sương mai"}
+  - {id: 61, name: "grape leaf spot", crop: grape, disease: "leaf spot", crop_vi: "Nho", disease_vi: "Đốm lá"}
+  - {id: 62, name: "grapevine leafroll disease", crop: grape, disease: "leafroll disease", crop_vi: "Nho", disease_vi: null}
+  - {id: 63, name: "lettuce downy mildew", crop: lettuce, disease: "downy mildew", crop_vi: "Xà lách", disease_vi: "Sương mai"}
+  - {id: 64, name: "lettuce mosaic virus", crop: lettuce, disease: "mosaic virus", crop_vi: "Xà lách", disease_vi: "Khảm virus"}
+  - {id: 65, name: "maple tar spot", crop: maple, disease: "tar spot", crop_vi: "Cây phong", disease_vi: null}
+  - {id: 66, name: "peach anthracnose", crop: peach, disease: "anthracnose", crop_vi: "Đào", disease_vi: "Thán thư"}
+  - {id: 67, name: "peach brown rot", crop: peach, disease: "brown rot", crop_vi: "Đào", disease_vi: "Thối nâu"}
+  - {id: 68, name: "peach leaf curl", crop: peach, disease: "leaf curl", crop_vi: "Đào", disease_vi: "Xoăn lá"}
+  - {id: 69, name: "peach rust", crop: peach, disease: "rust", crop_vi: "Đào", disease_vi: "Gỉ sắt"}
+  - {id: 70, name: "peach scab", crop: peach, disease: "scab", crop_vi: "Đào", disease_vi: "Ghẻ"}
+  - {id: 71, name: "plum bacterial spot", crop: plum, disease: "bacterial spot", crop_vi: "Mận", disease_vi: "Đốm vi khuẩn"}
+  - {id: 72, name: "plum brown rot", crop: plum, disease: "brown rot", crop_vi: "Mận", disease_vi: "Thối nâu"}
+  - {id: 73, name: "plum pocket disease", crop: plum, disease: "pocket disease", crop_vi: "Mận", disease_vi: null}
+  - {id: 74, name: "plum pox virus", crop: plum, disease: "pox virus", crop_vi: "Mận", disease_vi: null}
+  - {id: 75, name: "plum rust", crop: plum, disease: "rust", crop_vi: "Mận", disease_vi: "Gỉ sắt"}
+  - {id: 76, name: "potato early blight", crop: potato, disease: "early blight", crop_vi: "Khoai tây", disease_vi: "Đốm vòng"}
+  - {id: 77, name: "potato late blight", crop: potato, disease: "late blight", crop_vi: "Khoai tây", disease_vi: "Mốc sương"}
+  - {id: 78, name: "raspberry fire blight", crop: raspberry, disease: "fire blight", crop_vi: "Mâm xôi", disease_vi: null}
+  - {id: 79, name: "raspberry gray mold", crop: raspberry, disease: "gray mold", crop_vi: "Mâm xôi", disease_vi: "Mốc xám"}
+  - {id: 80, name: "raspberry leaf spot", crop: raspberry, disease: "leaf spot", crop_vi: "Mâm xôi", disease_vi: "Đốm lá"}
+  - {id: 81, name: "raspberry yellow rust", crop: raspberry, disease: "yellow rust", crop_vi: "Mâm xôi", disease_vi: "Gỉ sắt vàng"}
+  - {id: 82, name: "rice blast", crop: rice, disease: "blast", crop_vi: "Lúa", disease_vi: "Đạo ôn"}
+  - {id: 83, name: "rice sheath blight", crop: rice, disease: "sheath blight", crop_vi: "Lúa", disease_vi: "Khô vằn"}
+  - {id: 84, name: "soybean bacterial blight", crop: soybean, disease: "bacterial blight", crop_vi: "Đậu tương", disease_vi: "Cháy lá vi khuẩn"}
+  - {id: 85, name: "soybean brown spot", crop: soybean, disease: "brown spot", crop_vi: "Đậu tương", disease_vi: "Đốm nâu"}
+  - {id: 86, name: "soybean downy mildew", crop: soybean, disease: "downy mildew", crop_vi: "Đậu tương", disease_vi: "Sương mai"}
+  - {id: 87, name: "soybean frog eye leaf spot", crop: soybean, disease: "frog eye leaf spot", crop_vi: "Đậu tương", disease_vi: "Đốm mắt cua"}
+  - {id: 88, name: "soybean mosaic", crop: soybean, disease: "mosaic", crop_vi: "Đậu tương", disease_vi: "Khảm"}
+  - {id: 89, name: "soybean rust", crop: soybean, disease: "rust", crop_vi: "Đậu tương", disease_vi: "Gỉ sắt"}
+  - {id: 90, name: "squash powdery mildew", crop: squash, disease: "powdery mildew", crop_vi: "Bí", disease_vi: "Phấn trắng"}
+  - {id: 91, name: "strawberry anthracnose", crop: strawberry, disease: "anthracnose", crop_vi: "Dâu tây", disease_vi: "Thán thư"}
+  - {id: 92, name: "strawberry leaf scorch", crop: strawberry, disease: "leaf scorch", crop_vi: "Dâu tây", disease_vi: null}
+  - {id: 93, name: "tobacco blue mold", crop: tobacco, disease: "blue mold", crop_vi: "Thuốc lá", disease_vi: null}
+  - {id: 94, name: "tobacco brown spot", crop: tobacco, disease: "brown spot", crop_vi: "Thuốc lá", disease_vi: "Đốm nâu"}
+  - {id: 95, name: "tobacco frogeye leaf spot", crop: tobacco, disease: "frogeye leaf spot", crop_vi: "Thuốc lá", disease_vi: "Đốm mắt cua"}
+  - {id: 96, name: "tobacco mosaic virus", crop: tobacco, disease: "mosaic virus", crop_vi: "Thuốc lá", disease_vi: "Khảm virus"}
+  - {id: 97, name: "tomato bacterial leaf spot", crop: tomato, disease: "bacterial leaf spot", crop_vi: "Cà chua", disease_vi: "Đốm lá vi khuẩn"}
+  - {id: 98, name: "tomato early blight", crop: tomato, disease: "early blight", crop_vi: "Cà chua", disease_vi: "Đốm vòng"}
+  - {id: 99, name: "tomato late blight", crop: tomato, disease: "late blight", crop_vi: "Cà chua", disease_vi: "Mốc sương"}
+  - {id: 100, name: "tomato leaf mold", crop: tomato, disease: "leaf mold", crop_vi: "Cà chua", disease_vi: "Mốc lá"}
+  - {id: 101, name: "tomato mosaic virus", crop: tomato, disease: "mosaic virus", crop_vi: "Cà chua", disease_vi: "Khảm virus"}
+  - {id: 102, name: "tomato septoria leaf spot", crop: tomato, disease: "septoria leaf spot", crop_vi: "Cà chua", disease_vi: "Đốm lá Septoria"}
+  - {id: 103, name: "tomato yellow leaf curl virus", crop: tomato, disease: "yellow leaf curl virus", crop_vi: "Cà chua", disease_vi: "Xoăn vàng lá virus"}
+  - {id: 104, name: "wheat bacterial leaf streak (black chaff)", crop: wheat, disease: "bacterial leaf streak (black chaff)", crop_vi: "Lúa mì", disease_vi: null}
+  - {id: 105, name: "wheat head scab", crop: wheat, disease: "head scab", crop_vi: "Lúa mì", disease_vi: null}
+  - {id: 106, name: "wheat leaf rust", crop: wheat, disease: "leaf rust", crop_vi: "Lúa mì", disease_vi: "Gỉ sắt lá"}
+  - {id: 107, name: "wheat loose smut", crop: wheat, disease: "loose smut", crop_vi: "Lúa mì", disease_vi: null}
+  - {id: 108, name: "wheat powdery mildew", crop: wheat, disease: "powdery mildew", crop_vi: "Lúa mì", disease_vi: "Phấn trắng"}
+  - {id: 109, name: "wheat septoria blotch", crop: wheat, disease: "septoria blotch", crop_vi: "Lúa mì", disease_vi: null}
+  - {id: 110, name: "wheat stem rust", crop: wheat, disease: "stem rust", crop_vi: "Lúa mì", disease_vi: "Gỉ sắt thân"}
+  - {id: 111, name: "wheat stripe rust", crop: wheat, disease: "stripe rust", crop_vi: "Lúa mì", disease_vi: "Gỉ sắt sọc"}
+  - {id: 112, name: "zucchini bacterial wilt", crop: zucchini, disease: "bacterial wilt", crop_vi: "Bí ngòi", disease_vi: "Héo vi khuẩn"}
+  - {id: 113, name: "zucchini downy mildew", crop: zucchini, disease: "downy mildew", crop_vi: "Bí ngòi", disease_vi: "Sương mai"}
+  - {id: 114, name: "zucchini powdery mildew", crop: zucchini, disease: "powdery mildew", crop_vi: "Bí ngòi", disease_vi: "Phấn trắng"}
+  - {id: 115, name: "zucchini yellow mosaic virus", crop: zucchini, disease: "yellow mosaic virus", crop_vi: "Bí ngòi", disease_vi: null}

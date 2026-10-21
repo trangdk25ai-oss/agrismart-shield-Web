@@ -1,0 +1,9 @@
+# Ánh xạ lớp của bộ dữ liệu hộp bao lá -> lớp của mô hình (dùng cho ai/scripts/s06b_eval_bbox.py).
+# "healthy" = lá khỏe (mẫu âm, đo tỷ lệ báo nhầm). Lớp nguồn không có trong danh sách bị bỏ qua.
+# Tên lớp nguồn lấy đúng như cột "class" trong train_labels.csv / test_labels.csv của PlantDoc.
+source: plantdoc
+class_map:
+  "Tomato Early blight leaf": tomato__early_blight
+  "Tomato leaf late blight": tomato__late_blight
+  "Tomato Septoria leaf spot": tomato__septoria_leaf_spot
+  "Tomato leaf": healthy

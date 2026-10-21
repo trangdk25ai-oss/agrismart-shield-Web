@@ -1,0 +1,8 @@
+# Thư viện tối thiểu cho Phần 1 (máy tính thường, không cần GPU): kiểm thử, chuẩn bị dữ liệu, gán nhãn.
+# Huấn luyện / xuất mô hình dùng ai/requirements.txt (có ultralytics + PyTorch, nặng vài GB).
+numpy>=1.26
+opencv-python-headless>=4.9
+albumentations>=2.0,<3
+pyyaml>=6.0
+jsonschema>=4.21
+pytest>=8.0

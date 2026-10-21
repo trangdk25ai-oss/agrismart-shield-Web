@@ -1,0 +1,26 @@
+# Dữ liệu & kết quả huấn luyện (lưu trên Drive / GitHub Release, không commit)
+datasets/
+data_raw/
+runs/
+reports/
+*.pt
+*.onnx
+*.tflite
+*_saved_model/
+
+# Python
+__pycache__/
+*.pyc
+.venv*/
+.smoke*/
+.pytest_cache/
+
+# Trang web & Demo: mô hình và ảnh mẫu (giấy phép dữ liệu không cho phân phối lại bản chỉnh sửa)
+web/models/*
+!web/models/README.md
+demo/samples/
+demo/chup_lai/
+demo/danh_gia_chuyen_gia.csv
+
+*.zip
+.ipynb_checkpoints/
